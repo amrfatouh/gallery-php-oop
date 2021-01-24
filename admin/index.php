@@ -12,6 +12,11 @@
         <h1 class="page-header">Dashboard</h1>
       </div>
     </div>
+
+    <?php
+    print_r(User::findUserByUsername("amr_fatouh"));
+    ?>
+
     <!-- /.row -->
     <!-- /.container-fluid -->
 

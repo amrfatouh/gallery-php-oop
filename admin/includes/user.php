@@ -35,4 +35,20 @@ class User
     }
     return new User(...$userData);
   }
+  public static function findUserByUsername($username)
+  {
+    $username = Database::escape($username);
+    $assocUser = Database::query("SELECT * FROM users WHERE username = '$username'");
+    $userData = [];
+    foreach ($assocUser as $value) {
+      $userData[] = $value;
+    }
+    return new User(...$userData);
+  }
+
+  public static function verifyUser($username, $password)
+  {
+    $user = Database::query("SELECT password FROM users WHERE username = '$username'");
+    return $user['password'] === $password;
+  }
 }

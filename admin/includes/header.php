@@ -1,5 +1,11 @@
 <?php include("includes/init.php") ?>
 
+<?php
+if (!Session::isLoggedIn()) {
+  header("Location: ../login.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

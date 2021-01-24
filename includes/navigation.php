@@ -16,6 +16,15 @@
             <li>
               <a href="admin/index.php">Admin Panel</a>
             </li>
+            <?php if (Session::isLoggedIn()) { ?>
+              <li>
+                <a href="logout.php">Logout</a>
+              </li>
+            <?php } else { ?>
+              <li>
+                <a href="login.php">Login</a>
+              </li>
+            <?php } ?>
 
           </ul>
         </div>
