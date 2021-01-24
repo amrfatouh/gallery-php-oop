@@ -3,7 +3,7 @@
 class Database
 {
 
-  public static function checkQuery($queryResult)
+  private static function checkQuery($queryResult)
   {
     global $conn;
     if (!$queryResult) {
@@ -17,7 +17,7 @@ class Database
     $result = $conn->query($sql);
     Database::checkQuery($result);
     if (stripos($sql, "select") !== false && $result->num_rows > 0) {
-      return $result->fetch_all(MYSQLI_ASSOC);
+      return $result->num_rows === 1 ? $result->fetch_all(MYSQLI_ASSOC)[0] : $result->fetch_all(MYSQLI_ASSOC);
     }
   }
 
