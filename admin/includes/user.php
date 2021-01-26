@@ -2,6 +2,13 @@
 
 class User
 {
+  static private $table = "users";
+  static private $className = "User";
+  public $id;
+  public $username;
+  public $password;
+  public $first_name;
+  public $last_name;
   function __construct($id, $username, $password, $first_name, $last_name)
   {
     $this->id = $id;
@@ -13,26 +20,33 @@ class User
 
   public function create()
   {
-    $sql = "INSERT INTO users (username, password, first_name, last_name) ";
-    $sql .= "VALUES ('$this->username', '$this->password', '$this->first_name', '$this->last_name')";
+    Database::escapeObjProps($this);
+    $objKeys = array_keys(get_object_vars($this));
+    array_shift($objKeys);
+    $objValues = array_values(get_object_vars($this));
+    array_shift($objValues);
+    $sql = "INSERT INTO " . static::$table . " (" . implode(",", $objKeys) . ") ";
+    $sql .= "VALUES ('" . implode("','", $objValues) . "')";
     $this->id = Database::query($sql);
     return true;
   }
 
   public function update()
   {
-    $sql = "UPDATE users SET ";
-    $sql .= "username = '$this->username', ";
-    $sql .= "password = '$this->password', ";
-    $sql .= "first_name = '$this->first_name', ";
-    $sql .= "last_name = '$this->last_name' ";
-    $sql .= "WHERE id = $this->id";
+    Database::escapeObjProps($this);
+    $sql = "UPDATE " . static::$table . " SET ";
+    foreach (get_object_vars($this) as $key => $value) {
+      if ($key !== "id") $sql .= "$key = '$value',";
+    }
+    //removing the last comma
+    $sql = substr($sql, 0, -1);
+    $sql .= " WHERE id = $this->id";
     return Database::query($sql);
   }
 
   public function save()
   {
-    if (User::findUserById($this->id)) {
+    if (User::findById($this->id)) {
       return $this->update();
     } else {
       return $this->create();
@@ -41,48 +55,55 @@ class User
 
   public function delete()
   {
-    $sql = "DELETE FROM users WHERE id = $this->id";
+    $this->id = Database::escape($this->id);
+    $sql = "DELETE FROM " . static::$table . " WHERE id = $this->id";
     return Database::query($sql);
   }
 
-  public static function findAllUsers()
+  public static function findAllRows()
   {
-    $userObjects = [];
-    $users = Database::query("SELECT * FROM users");
-    if (!empty($users)) {
-      foreach ($users as $user) {
-        $userData = [];
-        foreach ($user as $value) {
-          $userData[] = $value;
+    $objects = [];
+    $rows = Database::query("SELECT * FROM " . static::$table);
+    if (!empty($rows)) {
+      foreach ($rows as $row) {
+        $rowData = [];
+        foreach ($row as $value) {
+          $rowData[] = $value;
         }
-        $userObjects[] = new User(...$userData);
+        $objects[] = new User(...$rowData);
       }
     }
-    return $userObjects;
+    return $objects;
   }
 
-  public static function findUserById($id)
+  public static function findById($id)
   {
     $id = Database::escape($id);
-    $assocUser = Database::query("SELECT * FROM users WHERE id = $id");
-    $userData = [];
-    if (!empty($assocUser)) {
-      foreach ($assocUser as $value) {
-        $userData[] = $value;
+    $assocElement = Database::query("SELECT * FROM " . static::$table . " WHERE id = $id");
+    $elementData = [];
+    if (!empty($assocElement)) {
+      foreach ($assocElement as $value) {
+        $elementData[] = $value;
       }
-      return new User(...$userData);
+      return new self(...$elementData);
     }
     return false;
   }
-  public static function findUserByUsername($username)
+  public static function findByProperty($propertyName, $propertyValue)
   {
-    $username = Database::escape($username);
-    $assocUser = Database::query("SELECT * FROM users WHERE username = '$username'");
-    $userData = [];
-    foreach ($assocUser as $value) {
-      $userData[] = $value;
+    if (property_exists(static::$className, $propertyName)) {
+      $propertyValue = Database::escape($propertyValue);
+      $assocElements = Database::query("SELECT * FROM " . static::$table . " WHERE $propertyName = '$propertyValue'");
+      $elements = [];
+      foreach ($assocElements as $assocElement) {
+        $elementData = [];
+        foreach ($assocElement as $value) {
+          $elementData[] = $value;
+        }
+        $elements[] = new self(...$elementData);
+      }
+      return (count($elements) === 1) ? $elements[0] : $elements;
     }
-    return new User(...$userData);
   }
 
   public static function verifyUser($username, $password)

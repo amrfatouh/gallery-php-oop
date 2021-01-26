@@ -30,4 +30,11 @@ class Database
     global $conn;
     return $conn->real_escape_string($str);
   }
+
+  public static function escapeObjProps($obj)
+  {
+    foreach (get_object_vars($obj) as $key => $value) {
+      $obj->$key = Database::escape($value);
+    }
+  }
 }

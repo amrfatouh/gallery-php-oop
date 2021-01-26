@@ -14,10 +14,7 @@
     </div>
 
     <?php
-    $user = User::findUserById(5);
-    $user->username = "fatouh";
-    $user->save();
-    print_r(User::findUserById(5));
+    print_r(User::findByProperty("password", "123"));
     ?>
 
     <!-- /.row -->
