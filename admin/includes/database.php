@@ -18,6 +18,10 @@ class Database
     Database::checkQuery($result);
     if (stripos($sql, "select") !== false && $result->num_rows > 0) {
       return $result->num_rows === 1 ? $result->fetch_all(MYSQLI_ASSOC)[0] : $result->fetch_all(MYSQLI_ASSOC);
+    } else if (stripos($sql, "insert") !== false) {
+      return $conn->insert_id;
+    } else {
+      return $conn->affected_rows;
     }
   }
 

@@ -14,7 +14,10 @@
     </div>
 
     <?php
-    print_r(User::findUserByUsername("amr_fatouh"));
+    $user = User::findUserById(5);
+    $user->username = "fatouh";
+    $user->save();
+    print_r(User::findUserById(5));
     ?>
 
     <!-- /.row -->
