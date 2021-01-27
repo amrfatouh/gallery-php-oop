@@ -14,7 +14,7 @@
     </div>
 
     <?php
-    print_r(User::findByProperty("password", "123"));
+    echo basename("C:/xampp/htdocs/cms/index.php");
     ?>
 
     <!-- /.row -->

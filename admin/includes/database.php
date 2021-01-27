@@ -17,7 +17,7 @@ class Database
     $result = $conn->query($sql);
     Database::checkQuery($result);
     if (stripos($sql, "select") !== false && $result->num_rows > 0) {
-      return $result->num_rows === 1 ? $result->fetch_all(MYSQLI_ASSOC)[0] : $result->fetch_all(MYSQLI_ASSOC);
+      return $result->fetch_all(MYSQLI_ASSOC);
     } else if (stripos($sql, "insert") !== false) {
       return $conn->insert_id;
     } else {
@@ -34,7 +34,9 @@ class Database
   public static function escapeObjProps($obj)
   {
     foreach (get_object_vars($obj) as $key => $value) {
-      $obj->$key = Database::escape($value);
+      if (is_string($value)) {
+        $obj->$key = Database::escape($value);
+      }
     }
   }
 }
