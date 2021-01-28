@@ -42,6 +42,10 @@ class Photo extends DbObject
   {
     return DISPLAY_ROOT . static::$uploadDirectory . $this->filename;
   }
+  public function getPath()
+  {
+    return ROOT . static::$uploadDirectory . $this->filename;
+  }
 
   public function setFile($fileName)
   {
@@ -84,5 +88,14 @@ class Photo extends DbObject
       $this->customErrors[] = "no permissions to store image";
       return false;
     }
+  }
+
+  public function delete()
+  {
+    $this->id = Database::escape($this->id);
+    $sql = "DELETE FROM " . static::$table . " WHERE id = $this->id";
+    if (!Database::query($sql))
+      return false;
+    return unlink($this->getPath());
   }
 }
