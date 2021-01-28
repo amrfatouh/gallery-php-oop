@@ -35,6 +35,8 @@ if (!Session::isLoggedIn()) {
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+  <link rel="stylesheet" href="css/edit_photo_styles.css">
+
 </head>
 
 <body>

@@ -68,6 +68,9 @@ class Photo extends DbObject
 
   public function save()
   {
+    if (!empty($this->id)) {
+      return $this->update();
+    }
     $targetPath = ROOT . static::$uploadDirectory . $this->filename;
     if (!$this->filename || !$this->tmpPath) {
       $this->customErrors[] = "File data missing. Couldn't complete process.";

@@ -35,8 +35,8 @@ if (isset($_POST['submit'])) {
                 <input type="text" name="title" id="title" class="form-control">
               </div>
               <div class="form-group">
-                <label for="description">Photo Description</label>
-                <textarea name="description" id="description" rows="6" class="form-control"></textarea>
+                <label for="richtextarea">Photo Description</label>
+                <textarea name="description" id="richtextarea" rows="6" class="form-control"></textarea>
               </div>
               <div class="form-group">
                 <input type="file" name="uploaded_image">

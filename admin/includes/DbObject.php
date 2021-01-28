@@ -31,7 +31,9 @@ class DbObject
     Database::escapeObjProps($this);
     $sql = "UPDATE " . static::$table . " SET ";
     foreach (get_object_vars($this) as $key => $value) {
-      if ($key !== "id") $sql .= "$key = '$value',";
+      //making conditions for photo objects array properties(for errors) and empty properties (e.g. tmp_path)
+      if (!is_array($value) && !empty($value) && $key !== "id")
+        $sql .= "$key = '$value',";
     }
     //removing the last comma
     $sql = substr($sql, 0, -1);
