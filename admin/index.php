@@ -14,7 +14,6 @@
     </div>
 
     <?php
-    echo basename("C:/xampp/htdocs/cms/index.php");
     ?>
 
     <!-- /.row -->

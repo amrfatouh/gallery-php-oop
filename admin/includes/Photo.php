@@ -26,15 +26,22 @@ class Photo extends DbObject
     8 => 'A PHP extension stopped the file upload.',
   );
 
-  // function __construct($id, $title, $description, $filename, $type, $size)
-  // {
-  //   $this->id = $id;
-  //   $this->title = $title;
-  //   $this->description = $description;
-  //   $this->filename = $filename;
-  //   $this->type = $type;
-  //   $this->size = $size;
-  // }
+  public static function constructInstance($id = null, $title = null, $description = null, $filename = null, $type = null, $size = null)
+  {
+    $photo = new Photo;
+    $photo->id = $id;
+    $photo->title = $title;
+    $photo->description = $description;
+    $photo->filename = $filename;
+    $photo->type = $type;
+    $photo->size = $size;
+    return $photo;
+  }
+
+  public function getDisplayPath()
+  {
+    return DISPLAY_ROOT . static::$uploadDirectory . $this->filename;
+  }
 
   public function setFile($fileName)
   {

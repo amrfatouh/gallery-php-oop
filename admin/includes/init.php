@@ -3,6 +3,7 @@
 <?php
 define("DS", DIRECTORY_SEPARATOR);
 define("ROOT", "C:" . DS . "xampp" . DS . "htdocs" . DS . "gallery" . DS);
+define("DISPLAY_ROOT", "http:" . DS . DS . "localhost" . DS . "gallery" . DS);
 
 if (str_contains(getcwd(), "admin")) {
   include("includes/new_config.php");

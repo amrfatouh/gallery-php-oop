@@ -5,6 +5,12 @@ class DbObject
   static protected $table;
   static protected $className; //used when checking if the property belongs to the class in getByProperty() method
   static protected $integerProps = []; //used when querying integers to database
+
+  public static function constructInstance()
+  {
+    return new static;
+  }
+
   public function create()
   {
     Database::escapeObjProps($this);
@@ -59,7 +65,7 @@ class DbObject
         foreach ($row as $value) {
           $rowData[] = $value;
         }
-        $objects[] = new static(...$rowData);
+        $objects[] = static::constructInstance(...$rowData);
       }
     }
     return $objects;
@@ -71,14 +77,12 @@ class DbObject
     //query returns an array that contains only one associative array representing a db object
     $assocElements = Database::query("SELECT * FROM " . static::$table . " WHERE id = $id");
     $elementData = [];
-    if (!empty($assocElements)) {
-      $assocElement = $assocElements[0];
-      foreach ($assocElement as $value) {
-        $elementData[] = $value;
-      }
-      return new static(...$elementData);
+    if (empty($assocElements)) return false;
+    $assocElement = $assocElements[0];
+    foreach ($assocElement as $value) {
+      $elementData[] = $value;
     }
-    return false;
+    return static::constructInstance(...$elementData);
   }
   public static function findByProperty($propertyName, $propertyValue)
   {
@@ -93,8 +97,8 @@ class DbObject
         foreach ($assocElement as $value) {
           $elementData[] = $value;
         }
-        return new static(...$elementData);
-        $elements[] = new static(...$elementData);
+        // return static::constructInstance(...$elementData);
+        $elements[] = static::constructInstance(...$elementData);
       }
       return (count($elements) === 1) ? $elements[0] : $elements;
     }
