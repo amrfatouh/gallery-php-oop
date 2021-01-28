@@ -31,11 +31,13 @@
           ?>
             <tr>
               <td>
-                <img src="<?php echo $user->getImagePath() ?>" alt="<?php echo $user->title ?>" width="100" style="margin: 5px auto;display: block;" class="img-thumbnail">
+                <img src="<?php echo $user->getImagePath() ?>" alt="<?php echo $user->title ?>" width="100" style="margin: auto;display: block;" class="img-thumbnail">
+                <hr>
                 <div style="display: flex; justify-content: space-evenly;">
                   <a href="edit_user.php?id=<?php echo $user->id ?>" class="btn btn-info">Edit</a>
                   <a href="delete_user.php?id=<?php echo $user->id ?>" class="btn btn-danger">Delete</a>
                 </div>
+                <br>
               </td>
               <td><?php echo $user->username ?></td>
               <td><?php echo $user->first_name ?></td>
