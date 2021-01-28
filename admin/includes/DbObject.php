@@ -86,6 +86,7 @@ class DbObject
     }
     return static::constructInstance(...$elementData);
   }
+
   public static function findByProperty($propertyName, $propertyValue)
   {
     if (property_exists(static::$className, $propertyName)) {
@@ -104,5 +105,13 @@ class DbObject
       }
       return (count($elements) === 1) ? $elements[0] : $elements;
     }
+  }
+
+  public static function totalCount()
+  {
+    $countArray = Database::query("SELECT COUNT(id) FROM " . static::$table);
+    //the count value is a value inside an assoc array which is itself the first element of an indexed array
+    $countArray = array_shift($countArray);
+    return array_shift($countArray);
   }
 }
