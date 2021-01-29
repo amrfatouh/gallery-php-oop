@@ -20,6 +20,7 @@
           <th>File Name</th>
           <th>Type</th>
           <th>Size</th>
+          <th>Comments</th>
         </tr>
 
         <?php
@@ -34,7 +35,7 @@
             <td>
               <img src="<?php echo $photo->getDisplayPath() ?>" alt="<?php echo $photo->title ?>" width="200" style="margin-bottom: 5px;display: block;">
               <div style="display: flex; justify-content: space-evenly;">
-                <a href="#" class="btn btn-success">View</a>
+                <a href="../photo.php?id=<?php echo $photo->id ?>" class="btn btn-success">View</a>
                 <a href="edit_photo.php?id=<?php echo $photo->id ?>" class="btn btn-info">Edit</a>
                 <a href="delete_photo.php?id=<?php echo $photo->id ?>" class="btn btn-danger">Delete</a>
               </div>
@@ -44,6 +45,12 @@
             <td><?php echo $photo->filename ?></td>
             <td><?php echo $photo->type ?></td>
             <td><?php echo $photo->size ?></td>
+
+            <?php
+            $comments = $photo->getRelatedComments();
+            $commentsCount = empty($comments) ? 0 : count($comments);
+            ?>
+            <td><a href="<?php echo $commentsCount ? "comments.php?photo_id=$photo->id" : "#" ?>" class="btn btn-info <?php echo !$commentsCount ? "disabled" : "" ?>"><?php echo $commentsCount ?></a></td>
           </tr>
         <?php
         }

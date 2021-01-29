@@ -11,6 +11,7 @@ if (str_contains(getcwd(), "admin")) {
   include("includes/DbObject.php");
   include("includes/user.php");
   include("includes/Photo.php");
+  include("includes/Comment.php");
   include("includes/session.php");
   include("includes/Paginate.php");
 } else {
@@ -19,6 +20,7 @@ if (str_contains(getcwd(), "admin")) {
   include("admin/includes/DbObject.php");
   include("admin/includes/user.php");
   include("admin/includes/Photo.php");
+  include("admin/includes/Comment.php");
   include("admin/includes/session.php");
   include("admin/includes/Paginate.php");
 }

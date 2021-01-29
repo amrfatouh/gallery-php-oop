@@ -1,13 +1,11 @@
 <?php include("includes/header.php"); ?>
 
 <?php
-if (isset($_GET['page']) && isset($_GET['items'])) {
-  $currentPage = (int)$_GET['page'];
-  $itemsPerPage = (int)$_GET['items'];
-  $itemsTotalCount = Photo::totalCount();
-  $pagination = new Paginate($currentPage, $itemsPerPage, $itemsTotalCount);
-  $photos = $pagination->findItems();
-}
+$currentPage = (int)($_GET['page'] ?? 1);
+$itemsPerPage = (int)($_GET['items'] ?? 4);
+$itemsTotalCount = Photo::totalCount();
+$pagination = new Paginate($currentPage, $itemsPerPage, $itemsTotalCount);
+$photos = $pagination->findItems();
 ?>
 
 <div class="row">

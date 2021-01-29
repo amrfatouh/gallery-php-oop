@@ -99,6 +99,17 @@ class Photo extends DbObject
     $sql = "DELETE FROM " . static::$table . " WHERE id = $this->id";
     if (!Database::query($sql))
       return false;
-    return unlink($this->getPath());
+    if (!unlink($this->getPath())) return false;
+    //deleting related comments
+    $comments = $this->getRelatedComments();
+    foreach ($comments as $comment) {
+      $comment->delete();
+    }
+  }
+
+  public function getRelatedComments()
+  {
+    if (empty($this->id)) return false;
+    return Comment::findByProperty("photo_id", $this->id);
   }
 }

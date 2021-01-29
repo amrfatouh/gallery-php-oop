@@ -63,7 +63,10 @@ class User extends DbObject
 
   public static function verifyUser($username, $password)
   {
-    $user = Database::query("SELECT password FROM users WHERE username = '$username'");
+    $usersArray = Database::query("SELECT password FROM users WHERE username = '$username'");
+    if (empty($usersArray)) return false;
+    //get the first user of sent array (the array should contain only one user)
+    $user = array_shift($usersArray);
     return $user['password'] === $password;
   }
 

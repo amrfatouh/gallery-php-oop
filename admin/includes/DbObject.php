@@ -15,9 +15,8 @@ class DbObject
   {
     Database::escapeObjProps($this);
     $queryELements = array_filter(get_object_vars($this), function ($v) {
-      return !is_array($v);
+      return !is_array($v) && !empty($v);
     });
-    array_shift($queryELements);
     $objKeys = array_keys($queryELements);
     $objValues = array_values($queryELements);
     $sql = "INSERT INTO " . static::$table . " (" . implode(",", $objKeys) . ") ";
@@ -94,7 +93,10 @@ class DbObject
       $propertyValue = (in_array($propertyName, static::$integerProps)) ? $propertyValue : "'" . $propertyValue . "'";
       $assocElements = Database::query("SELECT * FROM " . static::$table . " WHERE $propertyName = $propertyValue");
       $elements = [];
-      if (!$assocElements) return false;
+      if (!$assocElements) {
+        // echo "no elements returned from database";
+        return false;
+      }
       foreach ($assocElements as $assocElement) {
         $elementData = [];
         foreach ($assocElement as $value) {
@@ -103,8 +105,9 @@ class DbObject
         // return static::constructInstance(...$elementData);
         $elements[] = static::constructInstance(...$elementData);
       }
-      return (count($elements) === 1) ? $elements[0] : $elements;
+      return $elements;
     }
+    // echo "property not found";
   }
 
   public static function totalCount()

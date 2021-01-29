@@ -1,10 +1,15 @@
 <?php include("includes/header.php"); ?>
 
+<?php if (empty($_GET['id'])) header("Location: index.php"); ?>
+
 <?php
-if (isset($_GET['id'])) {
-  $photo = Photo::findById($_GET['id']);
+if (isset($_POST['submit'])) {
+  $comment = Comment::constructInstance(null, (int)$_GET['id'], $_POST['author'], $_POST['body'], null);
+  $comment->create();
 }
 ?>
+
+<?php $photo = Photo::findById($_GET['id']) ?>
 
 <div class="row">
 
@@ -22,11 +27,16 @@ if (isset($_GET['id'])) {
     <!-- Comments Form -->
     <div class="well">
       <h4>Leave a Comment:</h4>
-      <form role="form">
+      <form action="" method="post">
         <div class="form-group">
-          <textarea class="form-control" rows="3"></textarea>
+          <label for="author">Author</label>
+          <input type="text" name="author" id="author" class="form-control">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="form-group">
+          <label for="body">Comment</label>
+          <textarea name="body" id="body" class="form-control" rows="4"></textarea>
+        </div>
+        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
 
@@ -34,18 +44,26 @@ if (isset($_GET['id'])) {
 
     <!-- Posted Comments -->
 
-    <!-- Comment -->
-    <div class="media">
-      <a class="pull-left" href="#">
-        <img class="media-object" src="http://placehold.it/64x64" alt="">
-      </a>
-      <div class="media-body">
-        <h4 class="media-heading">Start Bootstrap
-          <small>August 25, 2014 at 9:30 PM</small>
-        </h4>
-        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-      </div>
-    </div>
+    <?php
+    $comments = $photo->getRelatedComments();
+    if (!empty($comments)) {
+      foreach ($comments as $comment) {
+    ?>
+        <div class="media">
+          <a class="pull-left" href="#">
+            <img class="media-object" src="http://placehold.it/64x64" alt="">
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading"><?php echo $comment->author ?>
+              <small><?php echo $comment->date ?></small>
+            </h4>
+            <?php echo $comment->body ?>
+          </div>
+        </div>
+    <?php
+      }
+    }
+    ?>
 
 
   </div>
