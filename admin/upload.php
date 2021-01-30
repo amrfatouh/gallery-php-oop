@@ -9,10 +9,11 @@ if (isset($_POST['submit'])) {
   $photo->description = $_POST['description'];
   $photo->setFile("uploaded_image");
   if ($photo->save()) {
-    $message = "Photo uploaded successfully!";
+    Session::addNotification("Photo uploaded successfully!");
   } else {
-    $message = implode("<br>", $photo->customErrors);
+    Session::addNotification(implode("<br>", $photo->customErrors));
   }
+  header("Location: photos.php");
 }
 
 ?>

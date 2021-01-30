@@ -11,7 +11,13 @@ if (isset($_POST['submit'])) {
 
 
   $user = User::constructInstance(null, $username, $password, $first_name, $last_name);
-  $user->save();
+  if ($user->save()) {
+    Session::addNotification("user added successfully");
+  } else {
+    Session::addNotification("error: couldn't add user");
+  }
+
+  header("Location: users.php");
 }
 
 ?>

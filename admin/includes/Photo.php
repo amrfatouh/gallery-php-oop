@@ -102,9 +102,11 @@ class Photo extends DbObject
     if (!unlink($this->getPath())) return false;
     //deleting related comments
     $comments = $this->getRelatedComments();
+    $flag = true;
     foreach ($comments as $comment) {
-      $comment->delete();
+      if (!($flag = $comment->delete())) break;
     }
+    return $flag;
   }
 
   public function getRelatedComments()

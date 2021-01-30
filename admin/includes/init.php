@@ -1,5 +1,9 @@
 <?php ob_start(); ?>
-<?php session_start(); ?>
+<?php
+session_start();
+// $_SESSION['notifications'] = []; //initialize notifications array in session
+
+?>
 <?php
 define("DS", DIRECTORY_SEPARATOR);
 define("ROOT", "C:" . DS . "xampp" . DS . "htdocs" . DS . "gallery" . DS);

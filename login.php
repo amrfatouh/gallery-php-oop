@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
   $password = Database::escape($password);
 
   if (User::verifyUser($username, $password)) {
-    Session::login(User::findByProperty("username", $username));
+    Session::login(User::findByProperty("username", $username)[0]);
     header("Location: admin/index.php");
   } else $errMessage = "wrong user name or password";
 }

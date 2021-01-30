@@ -11,7 +11,12 @@ if (isset($_GET['id'])) {
 if (isset($_POST['update'])) {
   $photo->title = $_POST['title'];
   $photo->description = $_POST['description'];
-  $message = ($photo->save()) ? "Photo updated successfully." : "Something went wromg. Photo didn't update.";
+  if ($photo->save()) {
+    Session::addNotification("photo is updated successfully");
+  } else {
+    Session::addNotification("error: couldn't update photo");
+  }
+  header("Location: edit_photo.php?id={$_GET['id']}");
 }
 ?>
 
@@ -25,7 +30,6 @@ if (isset($_POST['update'])) {
         <h1 class="page-header">Edit Photo</h1>
 
         <div class="row">
-          <p><?php if (isset($_POST['update'])) echo $message ?></p>
           <form action="" method="post" enctype="multipart/form-data">
             <div class="col-md-8">
               <div class="form-group">

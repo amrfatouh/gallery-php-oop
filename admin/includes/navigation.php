@@ -1,3 +1,8 @@
+<?php
+$notCount = count($_SESSION['notifications']);
+$badgeColor = $notCount ? "#FA3E3E" : "#777";
+?>
+
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <!-- Brand and toggle get grouped for better mobile display -->
@@ -13,8 +18,29 @@
   <!-- Top Menu Items -->
   <ul class="nav navbar-right top-nav">
     <li><a href="../index.php">Home Page</a></li>
+
     <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+      <a class="dropdown-toggle" id="notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="display: flex;align-items: center;">
+        <i class="fa fa-fw fa-bell" style="font-size: 1.3em;"></i>
+        <?php if (isset($_SESSION['notifications'])) echo "<span id='notificationsBadge' class='badge' style='background-color: $badgeColor; font-size: 0.8em'>{$notCount}</span>" ?>
+      </a>
+
+      <ul id="notificationsDropdown" class="dropdown-menu" aria-labelledby="notifications">
+        <?php
+        if (empty($_SESSION['notifications']))
+          echo "<li><a href='#'>No new notifications</a></li>";
+        else {
+          foreach ($_SESSION['notifications'] as $notification) {
+            echo "<li><a href='#' style='display: flex;align-items: center;justify-content: space-between;'>$notification<i class='fa fa-fw fa-circle' style='font-size: 0.75em; color: #FA3E3E'></i></a></li>";
+          }
+        }
+        ?>
+
+      </ul>
+    </li>
+
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo User::findById($_SESSION['user_id'])->username ?> <b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li>
           <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>

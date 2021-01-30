@@ -12,7 +12,11 @@ if (isset($_GET['id'])) {
     $user->password = $_POST['password'];
     $user->first_name = $_POST['first_name'];
     $user->last_name = $_POST['last_name'];
-    $user->save();
+    if ($user->save()) {
+      Session::addNotification("user is updated successfully");
+    } else {
+      Session::addNotification("error: couldn't update user");
+    }
     header("Location: users.php");
   }
 }

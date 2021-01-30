@@ -12,8 +12,6 @@
         <h1 class="page-header">Comments</h1>
       </div>
       <?php
-      // $user = User::findById(12);
-      // $user->updateImage(10);
       ?>
     </div>
     <!-- /.row -->
@@ -43,7 +41,7 @@
               <td><?php echo $comment->author ?></td>
               <td><?php echo $comment->body ?></td>
               <td><?php echo $comment->date ?></td>
-              <td><a href="delete_comment.php?id=<?php echo $comment->id ?><?php echo isset($_GET['photo_id']) ? "&photo_id={$_GET['photo_id']}" : "" ?>" class="btn btn-danger btn-sm">Delete</a></td>
+              <td><a href="delete_comment.php?id=<?php echo $comment->id ?><?php echo isset($_GET['photo_id']) ? "&photo_id={$_GET['photo_id']}" : "" ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete <?php echo $comment->author ?>\'s comment?')">Delete</a></td>
             </tr>
           <?php
           }

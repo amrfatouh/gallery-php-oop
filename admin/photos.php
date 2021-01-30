@@ -37,7 +37,7 @@
               <div style="display: flex; justify-content: space-evenly;">
                 <a href="../photo.php?id=<?php echo $photo->id ?>" class="btn btn-success">View</a>
                 <a href="edit_photo.php?id=<?php echo $photo->id ?>" class="btn btn-info">Edit</a>
-                <a href="delete_photo.php?id=<?php echo $photo->id ?>" class="btn btn-danger">Delete</a>
+                <a href="delete_photo.php?id=<?php echo $photo->id ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete <?php echo $photo->title ?>?')">Delete</a>
               </div>
             </td>
             <td><?php echo $photo->title ?></td>

@@ -3,7 +3,11 @@
 <?php
 if (isset($_GET['id'])) {
   $photo = Photo::findById($_GET['id']);
-  $photo->delete();
+  if ($photo->delete()) {
+    Session::addNotification("photo is deleted successfully");
+  } else {
+    Session::addNotification("error: couldn't delete photo");
+  }
   header("Location: photos.php");
 }
 ?>

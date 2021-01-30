@@ -31,10 +31,10 @@
           ?>
             <tr>
               <td>
-                <img src="<?php echo $user->getImagePath() ?>" alt="<?php echo $user->title ?>" width="200" style="margin: 5px auto;display: block;" class="img-thumbnail">
+                <img src="<?php echo $user->getImagePath() ?>" alt="<?php echo $user->username ?>" style="margin: 5px auto;display: block;width: 200px;height: 100px;object-fit: cover;" class="img-thumbnail">
                 <div style="text-align: center;">
                   <a href="edit_user.php?id=<?php echo $user->id ?>" class="btn btn-info" style="margin-right: 7px;">Edit</a>
-                  <a href="delete_user.php?id=<?php echo $user->id ?>" class="btn btn-danger">Delete</a>
+                  <a href="delete_user.php?id=<?php echo $user->id ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete <?php echo $user->username ?>?')">Delete</a>
                 </div>
                 <br>
               </td>

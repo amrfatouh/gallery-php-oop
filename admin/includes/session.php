@@ -16,4 +16,17 @@ class Session
   {
     unset($_SESSION['user_id']);
   }
+
+  public static function addNotification($notification)
+  {
+    if (!isset($_SESSION['notifications']))
+      $_SESSION['notifications'] = [$notification];
+    else
+      array_push($_SESSION['notifications'], $notification);
+  }
+
+  public static function emptyNotifications()
+  {
+    $_SESSION['notifications'] = [];
+  }
 }
