@@ -31,10 +31,9 @@
           ?>
             <tr>
               <td>
-                <img src="<?php echo $user->getImagePath() ?>" alt="<?php echo $user->title ?>" width="100" style="margin: auto;display: block;" class="img-thumbnail">
-                <hr>
-                <div style="display: flex; justify-content: space-evenly;">
-                  <a href="edit_user.php?id=<?php echo $user->id ?>" class="btn btn-info">Edit</a>
+                <img src="<?php echo $user->getImagePath() ?>" alt="<?php echo $user->title ?>" width="200" style="margin: 5px auto;display: block;" class="img-thumbnail">
+                <div style="text-align: center;">
+                  <a href="edit_user.php?id=<?php echo $user->id ?>" class="btn btn-info" style="margin-right: 7px;">Edit</a>
                   <a href="delete_user.php?id=<?php echo $user->id ?>" class="btn btn-danger">Delete</a>
                 </div>
                 <br>

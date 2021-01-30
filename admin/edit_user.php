@@ -1,5 +1,6 @@
 <?php include("includes/header.php"); ?>
 <?php include("includes/navigation.php"); ?>
+<?php include("includes/photo_modal.php") ?>
 
 <?php
 
@@ -30,27 +31,32 @@ if (isset($_GET['id'])) {
         <h1 class="page-header">Edit User</h1>
       </div>
 
-      <div class="col-lg-6">
-        <form action="" method="post" enctype="multipart/form-data">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input value="<?php echo $user->username ?>" type="text" name="username" id="username" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input required type="password" name="password" id="password" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="first_name">First Name</label>
-            <input value="<?php echo $user->first_name ?>" type="text" name="first_name" id="first_name" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="last_name">Last Name</label>
-            <input value="<?php echo $user->last_name ?>" type="text" name="last_name" id="last_name" class="form-control">
-          </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <img id="edit_user_photo" data-toggle="modal" data-target="#photoModal" class="img-responsive" src="<?php echo $user->getImagePath() ?>" alt="<?php echo $user->username ?>" style="margin: auto; cursor: pointer;">
+        </div>
+        <div class="col-lg-6">
+          <form action="" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input value="<?php echo $user->username ?>" type="text" name="username" id="username" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input required type="password" name="password" id="password" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="first_name">First Name</label>
+              <input value="<?php echo $user->first_name ?>" type="text" name="first_name" id="first_name" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="last_name">Last Name</label>
+              <input value="<?php echo $user->last_name ?>" type="text" name="last_name" id="last_name" class="form-control">
+            </div>
 
-          <input type="submit" value="Submit" name='submit' class="btn btn-primary">
-        </form>
+            <input type="submit" value="Submit" name='submit' class="btn btn-primary">
+          </form>
+        </div>
       </div>
 
     </div>

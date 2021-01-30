@@ -11,12 +11,7 @@ if (isset($_POST['submit'])) {
 
 
   $user = User::constructInstance(null, $username, $password, $first_name, $last_name);
-  $user->setFile("user_image");
-  if ($user->save()) {
-    $message = "Photo uploaded successfully!";
-  } else {
-    $message = implode("<br>", $photo->customErrors);
-  }
+  $user->save();
 }
 
 ?>
@@ -32,7 +27,6 @@ if (isset($_POST['submit'])) {
       </div>
 
       <div class="col-lg-6">
-        <p><?php if (isset($_POST['submit'])) echo $message ?></p>
         <form action="" method="post" enctype="multipart/form-data">
           <div class="form-group">
             <label for="username">Username</label>
@@ -50,19 +44,13 @@ if (isset($_POST['submit'])) {
             <label for="last_name">Last Name</label>
             <input type="text" name="last_name" id="last_name" class="form-control">
           </div>
-
-          <div class="form-group">
-            <input type="file" name="user_image">
-          </div>
-
           <input type="submit" value="Submit" name='submit' class="btn btn-primary">
         </form>
       </div>
 
     </div>
 
-    <?php
-    ?>
+
 
     <!-- /.row -->
     <!-- /.container-fluid -->

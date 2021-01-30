@@ -13,6 +13,8 @@ class DbObject
 
   public function create()
   {
+    //if the class is user and its image property is empty, put random image
+    if (get_class($this) === "User" && !isset($this->image)) $this->image = Photo::findRandomRows(1)[0]->filename;
     Database::escapeObjProps($this);
     $queryELements = array_filter(get_object_vars($this), function ($v) {
       return !is_array($v) && !empty($v);
@@ -42,7 +44,7 @@ class DbObject
 
   public function save()
   {
-    if (static::findById($this->id)) {
+    if ($this->id) {
       return $this->update();
     } else {
       return $this->create();
@@ -74,9 +76,14 @@ class DbObject
 
   public static function findById($id)
   {
+    if (!isset($id)) {
+      echo "error: no sent to query";
+      return false;
+    }
     $id = Database::escape($id);
     //query returns an array that contains only one associative array representing a db object
-    $assocElements = Database::query("SELECT * FROM " . static::$table . " WHERE id = $id");
+    $sql = "SELECT * FROM " . static::$table . " WHERE id = $id";
+    $assocElements = Database::query($sql);
     $elementData = [];
     if (empty($assocElements)) return false;
     $assocElement = $assocElements[0];
@@ -84,6 +91,23 @@ class DbObject
       $elementData[] = $value;
     }
     return static::constructInstance(...$elementData);
+  }
+
+  public static function findRandomRows($limit = 1)
+  {
+    $objects = [];
+    $sql = "SELECT * FROM " . static::$table . " ORDER BY RAND() LIMIT " . (int)$limit;
+    $rows = Database::query($sql);
+    if (!empty($rows)) {
+      foreach ($rows as $row) {
+        $rowData = [];
+        foreach ($row as $value) {
+          $rowData[] = $value;
+        }
+        $objects[] = static::constructInstance(...$rowData);
+      }
+    }
+    return $objects;
   }
 
   public static function findByProperty($propertyName, $propertyValue)
