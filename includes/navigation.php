@@ -13,9 +13,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li>
-              <a href="admin/index.php">Admin Panel</a>
-            </li>
+            <?php echo (Session::isAdmin()) ? '<li> <a href="admin/index.php">Admin Panel</a> </li>' : "" ?>
             <?php if (Session::isLoggedIn()) { ?>
               <li>
                 <a href="logout.php">Logout</a>

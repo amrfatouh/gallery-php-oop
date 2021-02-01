@@ -1,5 +1,5 @@
 <?php
-$notCount = count($_SESSION['notifications']);
+$notCount = empty($_SESSION['notifications']) ? 0 : count($_SESSION['notifications']);
 $badgeColor = $notCount ? "#FA3E3E" : "#777";
 ?>
 
@@ -22,7 +22,7 @@ $badgeColor = $notCount ? "#FA3E3E" : "#777";
     <li class="dropdown">
       <a class="dropdown-toggle" id="notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="display: flex;align-items: center;">
         <i class="fa fa-fw fa-bell" style="font-size: 1.3em;"></i>
-        <?php if (isset($_SESSION['notifications'])) echo "<span id='notificationsBadge' class='badge' style='background-color: $badgeColor; font-size: 0.8em'>{$notCount}</span>" ?>
+        <?php echo "<span id='notificationsBadge' class='badge' style='background-color: $badgeColor; font-size: 0.8em'>{$notCount}</span>" ?>
       </a>
 
       <ul id="notificationsDropdown" class="dropdown-menu" aria-labelledby="notifications">

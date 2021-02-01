@@ -1,7 +1,7 @@
 <?php include("includes/init.php") ?>
 
 <?php
-if (!Session::isLoggedIn()) {
+if (!Session::isLoggedIn() || !Session::isAdmin()) {
   header("Location: ../login.php");
 }
 ?>

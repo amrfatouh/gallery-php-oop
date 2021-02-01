@@ -2,7 +2,7 @@
 
 <?php
 if (Session::isLoggedIn()) {
-  header("Location: admin/index.php");
+  header("Location: index.php");
 }
 ?>
 
@@ -16,18 +16,15 @@ if (isset($_POST['submit'])) {
 
   if (User::verifyUser($username, $password)) {
     Session::login(User::findByProperty("username", $username)[0]);
-    header("Location: admin/index.php");
-  } else $errMessage = "wrong user name or password";
+    header("Location: " . (Session::isAdmin() ? "admin/" : "") . "index.php"); //redirect to root index or admin index
+  } else {
+    Session::addNotification("wrong user name or password");
+    header("Location: login.php");
+  }
 }
 ?>
 
 <div class="col-md-4 col-md-offset-3">
-
-  <?php if (isset($errMessage)) { ?>
-    <div class="alert alert-danger" role="alert">
-      <?php echo $errMessage;  ?>
-    </div>
-  <?php } ?>
 
   <form id="login-id" action="" method="post">
 

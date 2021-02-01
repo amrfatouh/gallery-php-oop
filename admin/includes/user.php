@@ -10,12 +10,13 @@ class User extends DbObject
   public $password;
   public $first_name;
   public $last_name;
+  public $role;
   public $image;
 
   static public $uploadDirectory = "admin" . DS . "images" . DS;
   static public $imagePlaceholder = "http://placehold.it/300/597/eee?text=image";
 
-  public static function constructInstance($id = null, $username = null, $password = null, $first_name = null, $last_name = null, $image = null)
+  public static function constructInstance($id = null, $username = null, $password = null, $first_name = null, $last_name = null, $role = null, $image = null)
   {
     $user = new User;
     $user->id = $id;
@@ -23,6 +24,7 @@ class User extends DbObject
     $user->password = $password;
     $user->first_name = $first_name;
     $user->last_name = $last_name;
+    $user->role = $role;
     $user->image = $image;
     return $user;
   }
