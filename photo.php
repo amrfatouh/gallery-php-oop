@@ -4,7 +4,11 @@
 
 <?php
 if (isset($_POST['submit'])) {
-  $comment = Comment::constructInstance(null, (int)$_GET['id'], $_POST['author'], $_POST['body'], null);
+  if (!Session::isLoggedIn()) {
+    header("location: login.php");
+    exit(0);
+  }
+  $comment = Comment::constructInstance(null, (int)$_GET['id'], $_SESSION['user_id'], $_POST['body'], null);
   $comment->create();
 }
 ?>
@@ -29,11 +33,6 @@ if (isset($_POST['submit'])) {
       <h4>Leave a Comment:</h4>
       <form action="" method="post">
         <div class="form-group">
-          <label for="author">Author</label>
-          <input type="text" name="author" id="author" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="body">Comment</label>
           <textarea name="body" id="body" class="form-control" rows="4"></textarea>
         </div>
         <button type="submit" name="submit" class="btn btn-primary">Submit</button>
@@ -48,13 +47,14 @@ if (isset($_POST['submit'])) {
     $comments = $photo->getRelatedComments();
     if (!empty($comments)) {
       foreach ($comments as $comment) {
+        $user = $comment->getUser();
     ?>
         <div class="media">
           <a class="pull-left" href="#">
-            <img class="media-object" src="http://placehold.it/64x64" alt="">
+            <img class="media-object" src="<?php echo $user->getImagePath() ?>" alt="<?php echo $user->username ?>" style="width: 60px;height: 60px;object-fit: cover;">
           </a>
           <div class="media-body">
-            <h4 class="media-heading"><?php echo $comment->author ?>
+            <h4 class="media-heading"><?php echo $user->first_name . $user->last_name ?>
               <small><?php echo $comment->date ?></small>
             </h4>
             <?php echo $comment->body ?>

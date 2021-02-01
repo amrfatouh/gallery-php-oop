@@ -23,6 +23,7 @@
             <th>Username</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Role</th>
           </tr>
 
           <?php
@@ -41,6 +42,7 @@
               <td><?php echo $user->username ?></td>
               <td><?php echo $user->first_name ?></td>
               <td><?php echo $user->last_name ?></td>
+              <td><?php echo $user->role ?></td>
             </tr>
           <?php
           }

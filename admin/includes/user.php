@@ -56,4 +56,18 @@ class User extends DbObject
     $this->image = $photo->filename;
     return $this->update();
   }
+
+  public function getRelatedComments()
+  {
+    if (!isset($this->id)) return false;
+    return $comments = Comment::findByProperty("user_id", $this->id);
+  }
+  public function deleteRelatedComments()
+  {
+    $flag = true;
+    foreach ($this->getRelatedComments() as $comment) {
+      $flag = $comment->delete();
+    }
+    return $flag;
+  }
 }

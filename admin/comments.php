@@ -9,9 +9,10 @@
     <!-- Page Heading -->
     <div class="row">
       <div class="col-lg-12">
-        <h1 class="page-header">Comments</h1>
+        <h1 class="page-header">Comments <?php if (isset($_GET['photo_id'])) echo "of " . Photo::findById($_GET['photo_id'])->filename; ?></h1>
       </div>
       <?php
+      User::findByProperty("username", "amr_fatouh")[0]->updateImage(8);
       ?>
     </div>
     <!-- /.row -->
@@ -22,7 +23,7 @@
           <tr>
             <th>Id</th>
             <th>Photo_id</th>
-            <th>Author</th>
+            <th>User Id</th>
             <th>Body</th>
             <th>Date</th>
             <th>Delete</th>
@@ -38,7 +39,7 @@
             <tr>
               <td><?php echo $comment->id ?></td>
               <td><?php echo $comment->photo_id ?></td>
-              <td><?php echo $comment->author ?></td>
+              <td><?php echo $comment->user_id ?></td>
               <td><?php echo $comment->body ?></td>
               <td><?php echo $comment->date ?></td>
               <td><a href="delete_comment.php?id=<?php echo $comment->id ?><?php echo isset($_GET['photo_id']) ? "&photo_id={$_GET['photo_id']}" : "" ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete <?php echo $comment->author ?>\'s comment?')">Delete</a></td>

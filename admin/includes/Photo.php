@@ -114,4 +114,17 @@ class Photo extends DbObject
     if (empty($this->id)) return false;
     return Comment::findByProperty("photo_id", $this->id);
   }
+
+  public function getRelatedUsers()
+  {
+    return User::findByProperty("image", $this->filename);
+  }
+  public function handleRelatedUsers()
+  {
+    $flag = true;
+    foreach ($this->getRelatedUsers() as $user) {
+      $flag = $user->updateImage(Photo::findRandomRows(1)[0]->id);
+    }
+    return $flag;
+  }
 }

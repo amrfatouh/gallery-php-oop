@@ -8,9 +8,10 @@ if (isset($_POST['submit'])) {
   $password = $_POST['password'];
   $first_name = $_POST['first_name'];
   $last_name = $_POST['last_name'];
+  $role = $_POST['role'];
 
 
-  $user = User::constructInstance(null, $username, $password, $first_name, $last_name);
+  $user = User::constructInstance(null, $username, $password, $first_name, $last_name, $role);
   if ($user->save()) {
     Session::addNotification("user added successfully");
   } else {
@@ -49,6 +50,13 @@ if (isset($_POST['submit'])) {
           <div class="form-group">
             <label for="last_name">Last Name</label>
             <input type="text" name="last_name" id="last_name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="role">Role</label>
+            <select class="form-control" name="role" id="role">
+              <option value="normal">normal</option>
+              <option value="admin">admin</option>
+            </select>
           </div>
           <input type="submit" value="Submit" name='submit' class="btn btn-primary">
         </form>

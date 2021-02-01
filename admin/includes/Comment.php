@@ -5,27 +5,28 @@ class Comment extends DBObject
 
   static protected $table = "comments";
   static protected $className = "Comment";
-  static protected $integerProps = ["id", "photo_id"];
+  static protected $integerProps = ["id", "photo_id", "user_id"];
 
   public $id;
   public $photo_id;
-  public $author;
+  public $user_id;
   public $body;
   public $date;
 
-  public static function constructInstance($id = null, $photo_id = null, $author = null, $body = null, $date = null)
+  public static function constructInstance($id = null, $photo_id = null, $user_id = null, $body = null, $date = null)
   {
     $comment = new Comment;
     $comment->id = $id;
     $comment->photo_id = $photo_id;
-    $comment->author = $author;
+    $comment->user_id = $user_id;
     $comment->body = $body;
     $comment->date = $date;
     return $comment;
   }
 
-  public function findRelatedComments($photo_id)
+  public function getUser()
   {
-    return Comment::findByProperty("photo_id", $photo_id);
+    if (!$this->user_id) return false;
+    return User::findById($this->user_id);
   }
 }

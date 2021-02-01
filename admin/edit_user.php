@@ -12,6 +12,7 @@ if (isset($_GET['id'])) {
     $user->password = $_POST['password'];
     $user->first_name = $_POST['first_name'];
     $user->last_name = $_POST['last_name'];
+    $user->role = $_POST['role'];
     if ($user->save()) {
       Session::addNotification("user is updated successfully");
     } else {
@@ -57,7 +58,13 @@ if (isset($_GET['id'])) {
               <label for="last_name">Last Name</label>
               <input value="<?php echo $user->last_name ?>" type="text" name="last_name" id="last_name" class="form-control">
             </div>
-
+            <div class="form-group">
+              <label for="role">Role</label>
+              <select class="form-control" name="role" id="role">
+                <option value="normal">normal</option>
+                <option value="admin" <?php if ($user->role === "admin") echo "selected" ?>>admin</option>
+              </select>
+            </div>
             <input type="submit" value="Submit" name='submit' class="btn btn-primary">
           </form>
         </div>
