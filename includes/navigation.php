@@ -20,8 +20,12 @@
               </li>
             <?php } else { ?>
               <li>
+                <a href="signup.php">Sign Up</a>
+              </li>
+              <li>
                 <a href="login.php">Login</a>
               </li>
+
             <?php } ?>
 
           </ul>

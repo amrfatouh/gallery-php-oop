@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
             <img class="media-object" src="<?php echo $user->getImagePath() ?>" alt="<?php echo $user->username ?>" style="width: 60px;height: 60px;object-fit: cover;">
           </a>
           <div class="media-body">
-            <h4 class="media-heading"><?php echo $user->first_name . $user->last_name ?>
+            <h4 class="media-heading"><?php echo $user->first_name . " " . $user->last_name ?>
               <small><?php echo $comment->date ?></small>
             </h4>
             <?php echo $comment->body ?>
