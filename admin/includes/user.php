@@ -7,20 +7,23 @@ class User extends DbObject
   static protected $integerProps = ["id"];
   public $id;
   public $username;
+  public $email;
   public $password;
   public $first_name;
   public $last_name;
   public $role;
   public $image;
+  public $token;
 
   static public $uploadDirectory = "admin" . DS . "images" . DS;
   static public $imagePlaceholder = "http://placehold.it/300/597/eee?text=image";
 
-  public static function constructInstance($id = null, $username = null, $password = null, $first_name = null, $last_name = null, $role = null, $image = null)
+  public static function constructInstance($id = null, $username = null, $email = null, $password = null, $first_name = null, $last_name = null, $role = null, $image = null)
   {
     $user = new User;
     $user->id = $id;
     $user->username = $username;
+    $user->email = $email;
     $user->password = $password;
     $user->first_name = $first_name;
     $user->last_name = $last_name;
@@ -60,7 +63,7 @@ class User extends DbObject
   public function getRelatedComments()
   {
     if (!isset($this->id)) return false;
-    return $comments = Comment::findByProperty("user_id", $this->id);
+    return Comment::findByProperty("user_id", $this->id);
   }
   public function deleteRelatedComments()
   {

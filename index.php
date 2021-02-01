@@ -9,7 +9,7 @@ $photos = $pagination->findItems();
 ?>
 
 <div class="row">
-
+  <?php print_r(User::findByProperty("email", "amrfatouh1499@gmail.com")) ?>
   <!-- Blog Entries Column -->
   <div class="col-md-12">
     <?php

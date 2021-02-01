@@ -12,6 +12,7 @@ if (isset($_POST['submit'])) {
   $error = [];
   $username = $_POST['username'];
   $password = $_POST['password'];
+  $email = $_POST['email'];
   $first_name = $_POST['first_name'];
   $last_name = $_POST['last_name'];
 
@@ -19,8 +20,13 @@ if (isset($_POST['submit'])) {
     header("location: signup.php?error=name");
     exit;
   }
+  if (!empty(User::findByProperty("email", $email))) {
+    header("location: signup.php?error=email");
+    exit;
+  }
 
-  $user = User::constructInstance(null, $username, $password, $first_name, $last_name, "normal", null);
+
+  $user = User::constructInstance(null, $username, $email, $password, $first_name, $last_name, "normal", null);
   if ($user->save()) {
     header("location: index.php");
     exit(0);
@@ -38,6 +44,9 @@ if (isset($_GET['error'])) {
     case "name":
       $errMsg = "Username already exists. Please try another one";
       break;
+    case "email":
+      $errMsg = "Email already exists. Please try another one";
+      break;
     case "user":
       $errMsg = "Problem ocurred. Couldn't create user";
       break;
@@ -53,6 +62,10 @@ if (isset($_GET['error'])) {
     <div class="form-group">
       <label for="username">Username</label>
       <input type="text" name="username" id="username" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <input type="email" name="email" id="email" class="form-control">
     </div>
     <div class="form-group">
       <label for="password">Password</label>

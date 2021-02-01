@@ -21,6 +21,7 @@
           <tr>
             <th>User Image</th>
             <th>Username</th>
+            <th>E-mail</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Role</th>
@@ -40,6 +41,7 @@
                 <br>
               </td>
               <td><?php echo $user->username ?></td>
+              <td><?php echo $user->email ?></td>
               <td><?php echo $user->first_name ?></td>
               <td><?php echo $user->last_name ?></td>
               <td><?php echo $user->role ?></td>

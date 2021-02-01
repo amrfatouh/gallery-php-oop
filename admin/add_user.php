@@ -5,13 +5,14 @@
 
 if (isset($_POST['submit'])) {
   $username = $_POST['username'];
+  $email = $_POST['email'];
   $password = $_POST['password'];
   $first_name = $_POST['first_name'];
   $last_name = $_POST['last_name'];
   $role = $_POST['role'];
 
 
-  $user = User::constructInstance(null, $username, $password, $first_name, $last_name, $role);
+  $user = User::constructInstance(null, $username, $email, $password, $first_name, $last_name, $role);
   if ($user->save()) {
     Session::addNotification("user added successfully");
   } else {
@@ -38,6 +39,10 @@ if (isset($_POST['submit'])) {
           <div class="form-group">
             <label for="username">Username</label>
             <input type="text" name="username" id="username" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" name="email" id="email" class="form-control">
           </div>
           <div class="form-group">
             <label for="password">Password</label>

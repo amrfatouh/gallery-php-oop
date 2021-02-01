@@ -39,6 +39,7 @@ if (isset($_POST['submit'])) {
       <input type="password" class="form-control" name="password" value="<?php if (isset($_POST['submit'])) echo $password; ?>">
 
     </div>
+    <a href="forgot_pass_email.php">forgot password?</a>
 
 
     <div class="form-group">

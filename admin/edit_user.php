@@ -9,6 +9,7 @@ if (isset($_GET['id'])) {
   $user = User::findById($id);
   if (isset($_POST['submit'])) {
     $user->username = $_POST['username'];
+    $user->email = $_POST['email'];
     $user->password = $_POST['password'];
     $user->first_name = $_POST['first_name'];
     $user->last_name = $_POST['last_name'];
@@ -45,6 +46,10 @@ if (isset($_GET['id'])) {
             <div class="form-group">
               <label for="username">Username</label>
               <input value="<?php echo $user->username ?>" type="text" name="username" id="username" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input value="<?php echo $user->email ?>" type="email" name="email" id="email" class="form-control">
             </div>
             <div class="form-group">
               <label for="password">Password</label>
