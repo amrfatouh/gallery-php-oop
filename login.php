@@ -18,9 +18,14 @@ if (isset($_POST['submit'])) {
     Session::login(User::findByProperty("username", $username)[0]);
     header("Location: " . (Session::isAdmin() ? "admin/" : "") . "index.php"); //redirect to root index or admin index
   } else {
-    Session::addNotification("wrong user name or password");
-    header("Location: login.php");
+    header("Location: login.php?error=true");
   }
+}
+?>
+
+<?php
+if (isset($_GET['error'])) {
+  echo "<script>alert('wrong username or password')</script>";
 }
 ?>
 
@@ -39,7 +44,7 @@ if (isset($_POST['submit'])) {
       <input type="password" class="form-control" name="password" value="<?php if (isset($_POST['submit'])) echo $password; ?>">
 
     </div>
-    <a href="forgot_pass_email.php">forgot password?</a>
+    <a href="forgot_pass_email.php" style="margin-bottom: 10px;display: inline-block;">forgot password?</a>
 
 
     <div class="form-group">

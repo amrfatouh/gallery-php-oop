@@ -14,6 +14,7 @@
 
       <table class="table table-hover">
         <tr>
+          <th>Id</th>
           <th>Photo</th>
           <th>Title</th>
           <th>Description</th>
@@ -32,19 +33,20 @@
         foreach ($photos as $photo) {
         ?>
           <tr>
-            <td>
-              <img src="<?php echo $photo->getDisplayPath() ?>" alt="<?php echo $photo->title ?>" width="200" style="margin-bottom: 5px;display: block;">
-              <div style="display: flex; justify-content: space-evenly;">
-                <a href="../photo.php?id=<?php echo $photo->id ?>" class="btn btn-success">View</a>
-                <a href="edit_photo.php?id=<?php echo $photo->id ?>" class="btn btn-info">Edit</a>
-                <a href="delete_photo.php?id=<?php echo $photo->id ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete <?php echo $photo->title ?>?')">Delete</a>
+            <td><?php echo $photo->id ?></td>
+            <td class="text-center">
+              <img src="<?php echo $photo->getDisplayPath() ?>" alt="<?php echo $photo->title ?>" width="200" style="margin-bottom: 5px;" class="img-thumbnail">
+              <div style="display: flex; justify-content: center;">
+                <a href="../photo.php?id=<?php echo $photo->id ?>" class="btn btn-success" style="border-radius: 5px 0 0 5px;">View</a>
+                <a href="edit_photo.php?id=<?php echo $photo->id ?>" class="btn btn-info" style="border-radius: 0;">Edit</a>
+                <a href="delete_photo.php?id=<?php echo $photo->id ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete <?php echo $photo->title ?>?')" style="border-radius: 0 5px 5px 0;">Delete</a>
               </div>
             </td>
             <td><?php echo $photo->title ?></td>
-            <td><?php echo $photo->description ?></td>
-            <td><?php echo $photo->filename ?></td>
+            <td><?php echo strlen($photo->description) > 30 ? substr($photo->description, 0, 30) . "..." : $photo->description ?></td>
+            <td><?php echo strlen($photo->filename) > 30 ? substr($photo->filename, 0, 30) . "..." : $photo->filename ?></td>
             <td><?php echo $photo->type ?></td>
-            <td><?php echo $photo->size ?></td>
+            <td><?php echo $photo->size . " Bytes" ?></td>
 
             <?php
             $comments = $photo->getRelatedComments();

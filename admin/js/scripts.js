@@ -18,7 +18,9 @@ if (document.querySelector(".modal_thumbnails"))
         .then((content) => {
           const { filename, title, type, size, description } = content;
           document.querySelector("#modal_sidebar").innerHTML = `
-        <h2 class="text-center">${filename}</h2>
+        <h2 class="text-center">${
+          filename.length > 15 ? filename.substr(0, 15) + "..." : filename
+        }</h2>
         <p>Photo Title: ${title}</p>
         <p>Photo Type: ${type}</p>
         <p>Photo Size: ${size} bytes</p>

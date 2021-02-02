@@ -19,6 +19,7 @@
 
         <table class="table table-hover">
           <tr>
+            <th>Id</th>
             <th>User Image</th>
             <th>Username</th>
             <th>E-mail</th>
@@ -32,6 +33,7 @@
           foreach ($users as $user) {
           ?>
             <tr>
+              <td><?php echo $user->id ?></td>
               <td>
                 <img src="<?php echo $user->getImagePath() ?>" alt="<?php echo $user->username ?>" style="margin: 5px auto;display: block;width: 200px;height: 100px;object-fit: cover;" class="img-thumbnail">
                 <div style="text-align: center;">

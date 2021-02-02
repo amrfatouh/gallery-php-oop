@@ -41,6 +41,8 @@ class User extends DbObject
 
   public function getImageActualPath()
   {
+    if (empty($this->image))
+      return static::$imagePlaceholder;
     return ROOT . static::$uploadDirectory . $this->image;
   }
 
@@ -56,6 +58,10 @@ class User extends DbObject
   public function updateImage($photo_id)
   {
     $photo = Photo::findById($photo_id);
+    if (!$photo) {
+      $this->image = null;
+      return true;
+    }
     $this->image = $photo->filename;
     return $this->update();
   }

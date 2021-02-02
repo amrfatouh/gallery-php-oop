@@ -106,6 +106,8 @@ class DbObject
         }
         $objects[] = static::constructInstance(...$rowData);
       }
+    } else {
+      return false;
     }
     return $objects;
   }

@@ -1,18 +1,15 @@
 <?php
 // Import PHPMailer classes into the global namespace
+// These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-// These must be at the top of your script, not inside a function
-
-
-
 
 // Load Composer's autoloader
 require 'vendor/autoload.php';
 if (isset($_GET['email']) && isset($_GET['token'])) {
-
-  $changePasswordEmailBody = "<div> <h4>Click this link to change your password:</h4> <a href='http://localhost/gallery/forgot_pass_change_password.php?token={$_GET['token']}'>Change password</a> </div>";
+  $token = $_GET['token'];
+  $changePasswordEmailBody = "<div> <h4>Click this link to change your password:</h4> <a href='http://localhost/gallery/forgot_pass_change_password.php?token={$token}'>Change password</a> <p style='color: #555'>if you didn't request to change your password, just ignore this message.</p> </div>";
   // Instantiation and passing `true` enables exceptions
   $mail = new PHPMailer(true);
 

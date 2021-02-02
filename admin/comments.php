@@ -11,9 +11,6 @@
       <div class="col-lg-12">
         <h1 class="page-header">Comments <?php if (isset($_GET['photo_id'])) echo "of " . Photo::findById($_GET['photo_id'])->filename; ?></h1>
       </div>
-      <?php
-      User::findByProperty("username", "amr_fatouh")[0]->updateImage(8);
-      ?>
     </div>
     <!-- /.row -->
 

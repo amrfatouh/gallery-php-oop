@@ -8,12 +8,12 @@ if (Session::isLoggedIn()) {
 
 <?php
 if (!isset($_GET['token'])) {
-  // header("location: index.php");
-  exit("no token");
+  header("location: index.php");
+  exit;
 }
 if (!($user = User::findByProperty("token", $_GET['token'])[0])) {
-  // header("location: index.php");
-  exit("not found");
+  header("location: index.php");
+  exit;
 }
 ?>
 

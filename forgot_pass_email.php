@@ -21,7 +21,21 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
+<?php
+if (isset($_GET['success'])) {
+  echo "<script>alert('Mail sent! Please check your inbox.');</script>";
+}
+?>
+
+<?php
+if (isset($_GET['error'])) {
+  echo "<script>alert('error: no one registered with such e-mail');</script>";
+}
+?>
+
 <div class="col-md-4 col-md-offset-3">
+  <h3>Password Reset</h3>
+  <p style="font-size: 16px;">Enter the e-mail you signed up with</p>
 
   <form id="login-id" action="" method="post">
 
