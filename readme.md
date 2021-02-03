@@ -189,17 +189,36 @@ It consists of CRUD methods for all tables in the database and here are all the 
 
 ## Showing Extra Features
 
-1. Commenting & logging in
-   ![commenting](markdown/normal_user_commenting.gif)
+### Commenting & logging in
 
-2. Creating & Deleting users
-   ![creating and deleting users](markdown/admin_creating_deleting_user.gif)
+![commenting](markdown/normal_user_commenting.gif)
 
-3. Editing users
-   ![editing user](markdown/admin_editing_user.gif)
+---
 
-4. Uploading photos
-   ![uploading photos](markdown/admin_uploading_photo.gif)
+### Creating & Deleting users
 
-5. Viewing and Deleting comments
-   ![viewing and deleting comments](markdown/admin_showing_deleting_comment.gif)
+![creating and deleting users](markdown/admin_creating_deleting_user.gif)
+
+---
+
+### Editing users
+
+![editing user](markdown/admin_editing_user.gif)
+
+---
+
+### Uploading photos
+
+![uploading photos](markdown/admin_uploading_photo.gif)
+
+---
+
+### Viewing and Deleting comments
+
+![viewing and deleting comments](markdown/admin_showing_deleting_comment.gif)
+
+---
+
+### Forgot Password
+
+![forgot password](markdown/normal_user_changing_password.gif)
